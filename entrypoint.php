@@ -6,7 +6,7 @@ use KloostermanW\Coverage\Application;
 include 'vendor/autoload.php';
 
 $args = [
-    "name" => getenv('INPUT_FILE'),
+    "file" => getenv('INPUT_FILE'),
 ];
 
 $application = new Application($args);

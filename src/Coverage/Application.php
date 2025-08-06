@@ -13,6 +13,19 @@ class Application
 
     public function run(): string
     {
-        return "Hello World";
+        $threshold = 70;
+
+        $coverage = simplexml_load_string(file_get_contents($this->args['file']));
+        $ratio = (double) ($coverage->project->metrics["coveredstatements"] / $coverage->project->metrics["statements"] * 100);
+
+        echo sprintf('Line coverage: %s%%', $ratio);
+        echo sprintf('Threshold: %s%%', $threshold);
+
+        if ($ratio < $threshold) {
+            echo "FAILED!";
+            exit(-1);
+        }
+
+        echo "SUCCESS!";
     }
 }

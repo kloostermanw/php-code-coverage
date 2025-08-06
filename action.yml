@@ -1,10 +1,13 @@
-name: 'My PHP Action'
-description: 'A simple GitHub Action written in PHP'
+name: 'PHP Code Coverage'
+description: 'A GitHub Action to check code coverage from Clover XML reports'
 inputs:
   name:
     description: 'Your name'
     required: true
     default: 'World'
+  file:
+    description: 'Path to the Clover XML coverage report'
+    required: true
 runs:
   using: 'docker'
   image: 'Dockerfile'
