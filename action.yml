@@ -1,0 +1,10 @@
+name: 'My PHP Action'
+description: 'A simple GitHub Action written in PHP'
+inputs:
+  name:
+    description: 'Your name'
+    required: true
+    default: 'World'
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
