@@ -1,4 +1,13 @@
 #!/usr/bin/env php
 <?php
-$name = getenv('INPUT_NAME');
-echo "Hello, $name!\n";
+
+use KloostermanW\Coverage\Application;
+
+include 'vendor/autoload.php';
+
+$args = [
+    "name" => getenv('INPUT_FILE'),
+];
+
+$application = new Application($args);
+echo $application->run();

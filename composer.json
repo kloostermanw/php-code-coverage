@@ -1,0 +1,16 @@
+{
+  "name": "kloostermanw/coverage",
+  "autoload": {
+    "psr-4": {
+      "KloostermanW\\": "src/"
+    }
+  },
+  "authors": [
+    {
+      "name": "Wiebe Kloosterman"
+    }
+  ],
+  "require": {
+    "symfony/var-dumper": "^7.1"
+  }
+}

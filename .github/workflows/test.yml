@@ -12,4 +12,4 @@ jobs:
 
       - uses: ./
         with:
-          name: 'PHP Developer'
+          file: clover.example.base.xml
