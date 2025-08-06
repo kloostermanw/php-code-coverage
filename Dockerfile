@@ -3,6 +3,9 @@ FROM php:8.4-cli
 COPY entrypoint.php /entrypoint.php
 COPY ./src /src
 
+WORKDIR /src
+COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
+
 RUN composer install  \
     --ignore-platform-reqs \
     --no-ansi \
