@@ -1,13 +1,13 @@
-name: 'PHP Code Coverage'
-description: 'A GitHub Action to check code coverage from Clover XML reports'
+name: Daves Youtube Demo Action
+description: This action greets persons
 inputs:
-  name:
-    description: 'Your name'
+  person:
+    description: 'The person to greet'
     required: true
-    default: 'World'
-  file:
-    description: 'Path to the Clover XML coverage report'
-    required: true
+    default: 'Monolisa Octocat'
 runs:
-  using: 'docker'
-  image: 'Dockerfile'
+  using: node16
+  main: dist/index.js
+branding:
+  icon: 'crosshair'
+  color: 'green'
