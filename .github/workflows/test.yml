@@ -16,6 +16,5 @@ jobs:
       - run: npm run build
       - run: rm -rf node_modules
       - uses: ./
-      - uses: ./
         with:
-          person: 'Batman'
+          file: clover.example.base.xml

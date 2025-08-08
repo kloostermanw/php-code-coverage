@@ -1,5 +1,20 @@
-const core = require('@actions/core');
 
-const person = core.getInput('person');
+import {
+    debug,
+    error,
+    getBooleanInput,
+    getInput,
+    info,
+    setFailed,
+    summary,
+} from "@actions/core";
+import {Coverage} from "./Coverage";
 
-console.log(`Hey, welcome ${person}!`);
+
+
+const file = getInput('file');
+
+
+const coverage = new Coverage(file);
+
+coverage.run();

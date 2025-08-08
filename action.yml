@@ -1,4 +1,4 @@
-name: Daves Youtube Demo Action
+name: PHP code coverage
 description: This action greets persons
 inputs:
   person:

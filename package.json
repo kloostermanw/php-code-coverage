@@ -1,7 +1,7 @@
 {
-  "name": "daves-youtube-demo-action",
+  "name": "php-code-coverage",
   "version": "1.0.0",
-  "description": "This repository accompanies my Youtube Series on how to create and release actions.",
+  "description": "This repository is for testing code coverage with GitHub Actions.",
   "main": "index.js",
   "scripts": {
     "build": "node esbuild.cjs",
@@ -9,17 +9,18 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/davelosert/daves-youtube-demo-action.git"
+    "url": "git+https://github.com/kloostermanw/php-code-coverage.git"
   },
   "keywords": [],
   "author": "",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/davelosert/daves-youtube-demo-action/issues"
+    "url": "https://github.com/kloostermanw/php-code-coverage/issues"
   },
-  "homepage": "https://github.com/davelosert/daves-youtube-demo-action#readme",
+  "homepage": "https://github.com/kloostermanw/php-code-coverage#readme",
   "dependencies": {
-    "@actions/core": "1.10.1"
+    "@actions/core": "1.10.1",
+    "xml-js": "^1.6.11"
   },
   "devDependencies": {
     "@semantic-release/git": "10.0.1",
