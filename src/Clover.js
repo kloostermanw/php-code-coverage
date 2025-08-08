@@ -4,7 +4,10 @@
  */
 
 import { xml2json } from "xml-js";
-import { Coverage, Folder, Stats } from "./types.js";
+
+import { Stats } from "./Stats";
+import { Folder } from "./Folder";
+import { Coverage } from "./Coverage";
 
 /**
  * Converts a value to an array, handling undefined, single items, and arrays

@@ -24,7 +24,8 @@ export class CodeCoverage {
     }
 
     checkThreshold(cStats) {
-        console.log(cStats);
+        console.log(cStats.total.lines.percentual * 100);
+        console.log(cStats.total.methods.percentual * 100);
         console.log(this.files);
     }
 }
