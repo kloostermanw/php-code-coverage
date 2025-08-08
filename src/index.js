@@ -8,13 +8,14 @@ import {
     setFailed,
     summary,
 } from "@actions/core";
-import {Coverage} from "./Coverage";
+import {CodeCoverage} from "./CodeCoverage.js";
 
 
 
 const file = getInput('file');
+const files = getInput('files');
 
 
-const coverage = new Coverage(file);
+const coverage = new CodeCoverage(file, files);
 
 coverage.run();
