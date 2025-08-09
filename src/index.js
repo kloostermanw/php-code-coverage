@@ -10,9 +10,13 @@ import {
 } from "@actions/core";
 import {CodeCoverage} from "./CodeCoverage.js";
 
-const file = getInput('file');
-const files = getInput('files');
+const input = {
+    file: getInput('file'),
+    files: getInput('files') ?? '',
+    workflowPath: getInput('workflow-path') ?? '/',
+    repoPath: getInput('repo-path') ?? '/',
+}
 
-const coverage = new CodeCoverage(file, files);
+const coverage = new CodeCoverage(input);
 
 coverage.run();

@@ -22,3 +22,5 @@ jobs:
         with:
           file: genotool.xml
           files: /var/www/html/app/Models/DawiLogger.php,/var/www/html/app/Models/DeletedUser.php
+          workflow-path: /var/www/html
+          repo-path: src

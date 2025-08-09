@@ -3,13 +3,16 @@ import { promisify } from "util";
 import { fromString } from "./Clover.js";
 
 export class CodeCoverage {
-    constructor(file, files) {
-        if (!existsSync(file)) {
-            throw `file "${file}" not found`;
+    constructor(input) {
+        if (!existsSync(input.file)) {
+            throw `file "${input.file}" not found`;
         }
 
-        this.file = file;
-        this.files = files.split(',');
+        console.log(input);
+
+        this.file = input.file;
+        this.files = input.files.split(',')
+            .map(file => input.workflowPath + file.replace(input.repoPath, ""));
     }
 
     async run() {

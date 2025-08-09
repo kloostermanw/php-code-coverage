@@ -7,6 +7,14 @@ inputs:
   files:
     description: 'php files that where changed in the commit or pull request.'
     required: false
+  repo-path:
+    description: 'Path to the project in the repository. (the path used for files)'
+    required: false
+    default: ''
+  workflow-path:
+    description: 'Path to the project github workflow. (the path used in the XML file)'
+    required: false
+    default: '/var/www/html'
 runs:
   using: node16
   main: dist/index.js
