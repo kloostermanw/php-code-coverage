@@ -15,6 +15,9 @@ inputs:
     description: 'Path to the project github workflow. (the path used in the XML file)'
     required: false
     default: ''
+  signature:
+    description: Custom signature to be used at the bottom of the comment
+    required: false
 runs:
   using: node16
   main: dist/index.js

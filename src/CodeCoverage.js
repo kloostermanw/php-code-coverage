@@ -11,10 +11,11 @@ export class CodeCoverage {
             throw `file "${input.file}" not found`;
         }
 
-        this.github = input.token && getOctokit(input.token);
+        this.github = input.token ? getOctokit(input.token) : null;
 
         console.log(input);
 
+        this.signature = input.signature;
         this.file = input.file;
         this.files = input.files.split(',')
             .map(file => input.workflowPath + file.replace(input.repoPath, ""));
@@ -42,6 +43,13 @@ export class CodeCoverage {
             return;
         }
 
+        // Exit if no GitHub token is provided
+        if (!this.github) {
+            console.log("No GitHub token provided, skipping comment functionality");
+            return;
+        }
+        const commit = context.payload.pull_request?.head.sha.substring(0, 7);
+
         let commentId = null;
 
         try {
@@ -54,8 +62,9 @@ export class CodeCoverage {
 
             for (let i = comments.length - 1; i >= 0; i--) {
                 const c = comments[i];
-                if (!c.body?.includes(signature)) continue;
+                if (!c.body?.includes(this.signature)) continue;
                 commentId = c.id;
+                break;
             }
         } catch (e) {
             error(e);
