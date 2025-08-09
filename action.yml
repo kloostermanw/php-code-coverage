@@ -1,6 +1,10 @@
 name: PHP code coverage
 description: Coverage report for PHP
 inputs:
+  github-token:
+    description: Github token (`repo` scope required)
+    required: true
+    default: ${{ github.token }}
   file:
     description: 'XML file'
     required: true
@@ -14,7 +18,7 @@ inputs:
   workflow-path:
     description: 'Path to the project github workflow. (the path used in the XML file)'
     required: false
-    default: ''
+    default: ${{ github.workspace }}
   signature:
     description: Custom signature to be used at the bottom of the comment
     required: false
