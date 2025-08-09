@@ -1,12 +1,17 @@
 import { existsSync, readFile } from "fs";
 import { promisify } from "util";
 import { fromString } from "./Clover.js";
+import { getOctokit } from "@actions/github";
+import { context } from "@actions/github/lib/utils";
+import {error} from "@actions/core";
 
 export class CodeCoverage {
     constructor(input) {
         if (!existsSync(input.file)) {
             throw `file "${input.file}" not found`;
         }
+
+        this.github = input.token && getOctokit(input.token);
 
         console.log(input);
 
@@ -21,6 +26,40 @@ export class CodeCoverage {
 
         console.log(cStats);
         this.checkThreshold(cStats);
+
+        // Exit if not in a pull request context
+        if (context.eventName !== "pull_request") {
+            console.log("Not in a pull request context");
+            return;
+        }
+
+        const isFork =
+            `${context.repo.owner}/${context.repo.repo}` !==
+            context.payload.pull_request?.head?.repo?.full_name;
+
+        // Exit if the pull request is from a fork
+        if (isFork) {
+            return;
+        }
+
+        let commentId = null;
+
+        try {
+            const comments = (
+                await this.github.rest.issues.listComments({
+                    ...context.repo,
+                    issue_number: context.issue.number,
+                })
+            ).data.filter(filter);
+
+            for (let i = comments.length - 1; i >= 0; i--) {
+                const c = comments[i];
+                if (!c.body?.includes(signature)) continue;
+                commentId = c.id;
+            }
+        } catch (e) {
+            error(e);
+        }
     }
 
     checkThreshold(cStats) {
