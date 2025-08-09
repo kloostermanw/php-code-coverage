@@ -10,11 +10,8 @@ import {
 } from "@actions/core";
 import {CodeCoverage} from "./CodeCoverage.js";
 
-
-
 const file = getInput('file');
 const files = getInput('files');
-
 
 const coverage = new CodeCoverage(file, files);
 

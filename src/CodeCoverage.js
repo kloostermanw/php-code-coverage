@@ -12,9 +12,6 @@ export class CodeCoverage {
         this.files = files.split(',');
     }
 
-
-
-
     async run() {
         // Parse current coverage file
         const cStats = fromString((await promisify(readFile)(this.file)).toString());

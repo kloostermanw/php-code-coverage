@@ -18,3 +18,7 @@ jobs:
       - uses: ./
         with:
           file: clover.example.base.xml
+      - uses: ./
+        with:
+          file: genotool.xml
+          files: /var/www/html/app/Models/DawiLogger.php,/var/www/html/app/Models/DeletedUser.php

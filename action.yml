@@ -1,13 +1,15 @@
 name: PHP code coverage
-description: This action greets persons
+description: Coverage report for PHP
 inputs:
-  person:
-    description: 'The person to greet'
+  file:
+    description: 'XML file'
     required: true
-    default: 'Monolisa Octocat'
+  files:
+    description: 'php files that where changed in the commit or pull request.'
+    required: false
 runs:
   using: node16
   main: dist/index.js
 branding:
-  icon: 'crosshair'
-  color: 'green'
+  icon: 'check-circle'
+  color: 'orange'
