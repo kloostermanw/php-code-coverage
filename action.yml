@@ -14,7 +14,7 @@ inputs:
   workflow-path:
     description: 'Path to the project github workflow. (the path used in the XML file)'
     required: false
-    default: '/var/www/html'
+    default: ''
 runs:
   using: node16
   main: dist/index.js

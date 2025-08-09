@@ -27,6 +27,12 @@ export class CodeCoverage {
         console.log(cStats.total.lines.percentual * 100);
         console.log(cStats.total.methods.percentual * 100);
         console.log(this.files);
+
+        this.files.forEach(file => {
+            const lastSlashIndex = file.lastIndexOf('/');
+            const fStats = cStats.get(file.substring(0, lastSlashIndex), file.substring(lastSlashIndex + 1));
+            console.log(fStats);
+        })
     }
 }
 
