@@ -51,6 +51,7 @@ export class CodeCoverage {
             return;
         }
         const commit = context.payload.pull_request?.head.sha.substring(0, 7);
+        let filter = (commit) => commit?.user?.type === "Bot";
 
         let commentId = null;
 
