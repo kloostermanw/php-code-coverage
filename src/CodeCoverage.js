@@ -3,7 +3,7 @@ import { promisify } from "util";
 import { fromString } from "./Clover.js";
 import { getOctokit } from "@actions/github";
 import { context } from "@actions/github/lib/utils";
-import {error} from "@actions/core";
+import {error, getInput} from "@actions/core";
 
 export class CodeCoverage {
     constructor(input) {
@@ -11,7 +11,9 @@ export class CodeCoverage {
             throw `file "${input.file}" not found`;
         }
 
-        this.github = input.token ? getOctokit(input.token) : null;
+        const token = getInput("github-token") || process.env.GITHUB_TOKEN;
+
+        this.github = input.token ? getOctokit(token) : null;
 
         console.log(input);
 
