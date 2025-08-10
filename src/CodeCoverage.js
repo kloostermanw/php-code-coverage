@@ -6,6 +6,18 @@ import { context } from "@actions/github/lib/utils";
 import {error, getInput} from "@actions/core";
 
 export class CodeCoverage {
+    /** GitHub API client */
+    github;
+
+    /** Signature to identify comments */
+    signature;
+
+    /** Path to the current coverage file */
+    file;
+
+    /** Files to check */
+    files;
+
     constructor(input) {
         if (!existsSync(input.file)) {
             throw `file "${input.file}" not found`;
@@ -13,7 +25,7 @@ export class CodeCoverage {
 
         const token = getInput("github-token") || process.env.GITHUB_TOKEN;
 
-        this.github = input.token ? getOctokit(token) : null;
+        this.github = token ? getOctokit(token) : null;
 
         console.log(input);
 
