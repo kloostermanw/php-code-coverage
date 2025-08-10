@@ -95,7 +95,11 @@ ${this.signature}`;
     }
 
     async addComment(body) {
+        console.log("context");
         console.log(context);
+        console.log(context.issue);
+        console.log(context.issue.number);
+        console.log("end context");
         let filter = (commit) => commit?.user?.type === "Bot";
 
         let commentId = null;
