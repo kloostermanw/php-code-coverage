@@ -50,7 +50,29 @@ export class CodeCoverage {
             console.log("No GitHub token provided, skipping comment functionality");
             return;
         }
-        const commit = context.payload.pull_request?.head.sha.substring(0, 7);
+
+        console.log("GitHub token found.")
+
+
+
+        this.checkThreshold(cStats);
+
+        await this.addComment("test123");
+    }
+
+    checkThreshold(cStats) {
+        console.log(cStats.total.lines.percentual * 100);
+        console.log(cStats.total.methods.percentual * 100);
+        console.log(this.files);
+
+        this.files.forEach(file => {
+            const lastSlashIndex = file.lastIndexOf('/');
+            const fStats = cStats.get(file.substring(0, lastSlashIndex), file.substring(lastSlashIndex + 1));
+            console.log(fStats);
+        })
+    }
+
+    async addComment(body) {
         let filter = (commit) => commit?.user?.type === "Bot";
 
         let commentId = null;
@@ -72,18 +94,34 @@ export class CodeCoverage {
         } catch (e) {
             error(e);
         }
-    }
 
-    checkThreshold(cStats) {
-        console.log(cStats.total.lines.percentual * 100);
-        console.log(cStats.total.methods.percentual * 100);
-        console.log(this.files);
+        if (commentId) {
+            try {
+                await this.github.rest.issues.updateComment({
+                    ...context.repo,
+                    comment_id: commentId,
+                    body,
+                });
+                return;
+            } catch (e) {
+                console.log(e);
+            }
+        }
 
-        this.files.forEach(file => {
-            const lastSlashIndex = file.lastIndexOf('/');
-            const fStats = cStats.get(file.substring(0, lastSlashIndex), file.substring(lastSlashIndex + 1));
-            console.log(fStats);
-        })
+        // Create new comment if no existing comment was found or update failed
+        await this.github.rest.issues
+            .createComment({
+                ...context.repo,
+                issue_number: context.issue.number,
+                body,
+            })
+            .catch((e) => {
+                throw new Error(
+                    "Failed to create a new comment with: " +
+                    e.message +
+                    (e.stack ? ". Stack: " + e.stack : "")
+                );
+            });
     }
 }
 
