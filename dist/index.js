@@ -25534,7 +25534,16 @@ var CodeCoverage = class {
     }
     console.log("GitHub token found.");
     this.checkThreshold(cStats);
-    await this.addComment("test123");
+    const body = this.getBody();
+    await this.addComment(body);
+  }
+  getBody() {
+    var _a;
+    const commit = (_a = import_utils.context.payload.pull_request) == null ? void 0 : _a.head.sha.substring(0, 7);
+    return `
+Coverage report for commit: ${commit}
+File: \`${this.file}\`
+${this.signature}`;
   }
   checkThreshold(cStats) {
     console.log(cStats.total.lines.percentual * 100);
@@ -25548,6 +25557,7 @@ var CodeCoverage = class {
   }
   async addComment(body) {
     var _a;
+    console.log(import_utils.context);
     let filter = (commit) => {
       var _a2;
       return ((_a2 = commit == null ? void 0 : commit.user) == null ? void 0 : _a2.type) === "Bot";

@@ -68,8 +68,18 @@ export class CodeCoverage {
 
 
         this.checkThreshold(cStats);
+        const body = this.getBody();
+        await this.addComment(body);
+    }
 
-        await this.addComment("test123");
+    getBody()
+    {
+        const commit = context.payload.pull_request?.head.sha.substring(0, 7);
+
+        return `
+Coverage report for commit: ${commit}
+File: \`${this.file}\`
+${this.signature}`;
     }
 
     checkThreshold(cStats) {
@@ -85,6 +95,7 @@ export class CodeCoverage {
     }
 
     async addComment(body) {
+        console.log(context);
         let filter = (commit) => commit?.user?.type === "Bot";
 
         let commentId = null;
